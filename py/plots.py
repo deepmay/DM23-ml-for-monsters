@@ -6,6 +6,7 @@ import seaborn as sns
 import string
 
 from networkx.drawing.nx_agraph import graphviz_layout
+from activations import *
 
 def make_color_map_without_replacement(G):
     color_map = []
@@ -307,6 +308,40 @@ def plot_entropy(coin_entropies, max_entr=False):
                  ha='center')
     ax.locator_params(axis='both', nbins=20)
     plt.grid()
+    plt.show()
+    
+def plot_activations(x):
+    # Get y for each activation functions
+    y1 = binaryStep(x)
+    y2 = linear(x)
+    y3 = sigmoid(x)
+    y4 = RELU(x)
+    y5 = tanh(x)
+    y6 = softmax(x)
+
+    # Initialise the subplot function using number of rows and columns
+    fig, ax = plt.subplots(2, 3, figsize = (15, 9))
+
+    ax[0, 0].plot(x, y1)
+    ax[0, 0].set_title("binaryStep")
+
+    ax[0, 1].plot(x, y2)
+    ax[0, 1].set_title("linear")
+
+    ax[1, 0].plot(x, y3)
+    ax[1, 0].set_title("sigmoid")
+
+    ax[1, 1].plot(x, y4)
+    ax[1, 1].set_title("RELU")
+
+    ax[0, 2].plot(x, y5)
+    ax[0, 2].set_title("tanh")
+
+    ax[1, 2].plot(x, y6)
+    ax[1, 2].set_title("softmax")
+
+    # Combine all the operations and display
+    fig.suptitle('Activation Functions for Neural Networks', fontsize=20)
     plt.show()
     
 def set_grad_plot_fig_ax():
